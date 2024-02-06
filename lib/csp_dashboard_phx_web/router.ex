@@ -17,7 +17,9 @@ defmodule CspDashboardPhxWeb.Router do
   scope "/", CspDashboardPhxWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", ViolationReportController, :index
+
+    resources "/violation_reports", ViolationReportController
   end
 
   # Other scopes may use custom stacks.

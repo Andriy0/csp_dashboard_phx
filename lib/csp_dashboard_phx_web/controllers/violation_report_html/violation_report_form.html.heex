@@ -1,0 +1,9 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input :for={attr <- @attributes} field={f[attr]} type="text" label={"#{attr}"} />
+  <:actions>
+    <.button>Save Violation report</.button>
+  </:actions>
+</.simple_form>

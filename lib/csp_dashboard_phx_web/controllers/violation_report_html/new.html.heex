@@ -1,0 +1,8 @@
+<.header>
+  New Violation report
+  <:subtitle>Use this form to manage violation_report records in your database.</:subtitle>
+</.header>
+
+<.violation_report_form changeset={@changeset} action={~p"/violation_reports"} attributes={@attributes} />
+
+<.back navigate={~p"/violation_reports"}>Back to violation_reports</.back>
