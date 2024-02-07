@@ -10,7 +10,7 @@
 
 <.list>
   <:item :for={attr <- @attributes} title={attr}>
-    <%= @violation_report |> Map.get(attr) %>
+    <%= @violation_report |> Map.get(attr) |> inspect %>
   </:item>
 </.list>
 

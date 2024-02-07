@@ -9,7 +9,7 @@
 
 <.table id="violation_reports" rows={@violation_reports} row_click={&JS.navigate(~p"/violation_reports/#{&1}")}>
   <:col :for={attr <- @attributes} :let={violation_report} label={attr}>
-    <%= violation_report |> Map.get(attr) %>
+    <%= violation_report |> Map.get(attr) |> inspect %>
   </:col>
   <:action :let={violation_report}>
     <div class="sr-only">
