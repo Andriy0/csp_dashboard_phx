@@ -23,7 +23,7 @@ defmodule CspDashboardPhxWeb.Router do
 
     get "/", ViolationReportController, :index
 
-    resources "/violation_reports", ViolationReportController, except: [:create]
+    resources "/violation_reports", ViolationReportController, only: [:index, :show, :delete]
   end
 
   scope "/", CspDashboardPhxWeb do

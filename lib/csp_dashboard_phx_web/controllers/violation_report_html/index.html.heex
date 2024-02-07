@@ -1,10 +1,5 @@
 <.header>
   Listing Violation reports
-  <:actions>
-    <.link href={~p"/violation_reports/new"}>
-      <.button>New Violation report</.button>
-    </.link>
-  </:actions>
 </.header>
 
 <.table id="violation_reports" rows={@violation_reports} row_click={&JS.navigate(~p"/violation_reports/#{&1}")}>
@@ -12,10 +7,7 @@
     <%= violation_report |> Map.get(attr) |> inspect %>
   </:col>
   <:action :let={violation_report}>
-    <div class="sr-only">
-      <.link navigate={~p"/violation_reports/#{violation_report}"}>Show</.link>
-    </div>
-    <.link navigate={~p"/violation_reports/#{violation_report}/edit"}>Edit</.link>
+    <.link navigate={~p"/violation_reports/#{violation_report}"}>Show</.link>
   </:action>
   <:action :let={violation_report}>
     <.link href={~p"/violation_reports/#{violation_report}"} method="delete" data-confirm="Are you sure?">
