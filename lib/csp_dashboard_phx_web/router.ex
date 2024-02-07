@@ -1,19 +1,29 @@
 defmodule CspDashboardPhxWeb.Router do
   use CspDashboardPhxWeb, :router
 
+  # @content_security_policy %ContentSecurityPolicy.Policy{
+  #   default_src: [
+  #     "'self'"
+  #   ],
+  #   img_src: [
+  #     "'self'",
+  #     "data:"
+  #   ],
+  #   script_src: [
+  #     "'self'",
+  #     "'report-sample'"
+  #   ],
+  #   report_uri: [
+  #     "/violation_reports"
+  #   ]
+  # }
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {CspDashboardPhxWeb.Layouts, :root}
-    plug :put_secure_browser_headers#,
-      # %{
-      #   "content-security-policy-report-only" =>
-      #     "default-src 'self';\
-      #      img-src 'self' data:;\
-      #      script-src 'self' 'report-sample';\
-      #      report-uri /violation_reports"
-      # }
+    plug :put_secure_browser_headers#, %{"content-security-policy-report-only" => ContentSecurityPolicy.serialize(@content_security_policy)}
   end
 
   pipeline :csrf do
