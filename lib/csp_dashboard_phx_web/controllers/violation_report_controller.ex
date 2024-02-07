@@ -1,6 +1,9 @@
 defmodule CspDashboardPhxWeb.ViolationReportController do
   use CspDashboardPhxWeb, :controller
 
+  require IEx
+  require Logger
+
   alias CspDashboardPhx.ViolationReports
   alias CspDashboardPhx.ViolationReports.ViolationReport
 
@@ -16,15 +19,22 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
            attributes: ViolationReport.attributes)
   end
 
-  def create(conn, %{"violation_report" => violation_report_params}) do
-    case ViolationReports.create_violation_report(violation_report_params) do
-      {:ok, violation_report} ->
+  def create(conn, _params) do
+    case ViolationReports.create_violation_report(extract_report(conn)) do
+      {:ok, _violation_report} ->
+        message = "Record was successfully inserted into a database."
+        Logger.debug(message)
+
         conn
-        |> put_flash(:info, "Violation report created successfully.")
-        |> redirect(to: ~p"/violation_reports/#{violation_report}")
+        |> json(%{status: :ok, message: message})
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        message = inspect(changeset |> Map.get(:errors))
+        Logger.warning("Failed to insert record into a database: " <> message)
+
+        conn
+        |> put_status(400)
+        |> json(%{status: :error, message: message})
     end
   end
 
@@ -62,5 +72,36 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
     conn
     |> put_flash(:info, "Violation report deleted successfully.")
     |> redirect(to: ~p"/violation_reports")
+  end
+
+  defp extract_report(%Plug.Conn{} = conn) do
+    {:ok, body, _conn} = Plug.Conn.read_body(conn)
+    {:ok, json_body} = body |> Jason.decode()
+
+    json_body
+    |> transform()
+    |> put_raw_browser(conn)
+    |> put_raw_report()
+  end
+
+  defp transform(%{"csp-report" => report}) do
+    report
+    |> Map.new(fn
+      {key, value} -> {key |> String.replace("-", "_"), value}
+    end)
+  end
+
+  defp put_raw_browser(%{} = report, conn) do
+    {:ok, raw_browser} =
+      get_req_header(conn, "user-agent")
+      |> Enum.fetch(0)
+
+    report
+    |> Map.put("raw_browser", raw_browser)
+  end
+
+  defp put_raw_report(%{} = report) do
+    report
+    |> Map.put("raw_report", report)
   end
 end

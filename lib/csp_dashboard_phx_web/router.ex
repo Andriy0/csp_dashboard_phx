@@ -6,9 +6,12 @@ defmodule CspDashboardPhxWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {CspDashboardPhxWeb.Layouts, :root}
-    plug :protect_from_forgery
     plug :put_secure_browser_headers,
          %{"content-security-policy-report-only" => "default-src 'self'; report-uri /violation_reports"}
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
   end
 
   pipeline :api do
@@ -16,11 +19,17 @@ defmodule CspDashboardPhxWeb.Router do
   end
 
   scope "/", CspDashboardPhxWeb do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/", ViolationReportController, :index
 
-    resources "/violation_reports", ViolationReportController
+    resources "/violation_reports", ViolationReportController, except: [:create]
+  end
+
+  scope "/", CspDashboardPhxWeb do
+    pipe_through :browser
+
+    resources "/violation_reports", ViolationReportController, only: [:create]
   end
 
   # Other scopes may use custom stacks.
@@ -38,7 +47,7 @@ defmodule CspDashboardPhxWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through [:browser, :csrf]
 
       live_dashboard "/dashboard", metrics: CspDashboardPhxWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
