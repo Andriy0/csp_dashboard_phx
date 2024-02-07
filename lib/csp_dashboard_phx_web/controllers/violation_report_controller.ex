@@ -76,9 +76,9 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
 
   defp extract_report(%Plug.Conn{} = conn) do
     {:ok, body, _conn} = Plug.Conn.read_body(conn)
-    {:ok, json_body} = body |> Jason.decode()
+    {:ok, body} = body |> Jason.decode()
 
-    json_body
+    body
     |> transform()
     |> put_raw_browser(conn)
     |> put_raw_report()
@@ -91,7 +91,7 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
     end)
   end
 
-  defp put_raw_browser(%{} = report, conn) do
+  defp put_raw_browser(%{} = report, %Plug.Conn{} = conn) do
     {:ok, raw_browser} =
       get_req_header(conn, "user-agent")
       |> Enum.fetch(0)
