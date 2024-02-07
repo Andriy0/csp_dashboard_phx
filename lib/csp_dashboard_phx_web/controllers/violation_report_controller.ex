@@ -1,7 +1,7 @@
 defmodule CspDashboardPhxWeb.ViolationReportController do
   use CspDashboardPhxWeb, :controller
 
-  require IEx
+  require IEx # TODO: added for debugging purposes, to remove later
   require Logger
 
   alias CspDashboardPhx.ViolationReports
@@ -10,7 +10,7 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
   def index(conn, _params) do
     violation_reports = ViolationReports.list_violation_reports()
     render(conn, :index, violation_reports: violation_reports,
-           attributes: ViolationReport.attributes_to_display)
+           attributes: ViolationReport.attributes_for_index)
   end
 
   def create(conn, _params) do
@@ -34,8 +34,9 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
 
   def show(conn, %{"id" => id}) do
     violation_report = ViolationReports.get_violation_report!(id)
+
     render(conn, :show, violation_report: violation_report,
-           attributes: ViolationReport.attributes_to_display)
+           report_data: report_data_for_show(violation_report))
   end
 
   def delete(conn, %{"id" => id}) do
@@ -45,6 +46,23 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
     conn
     |> put_flash(:info, "Violation report deleted successfully.")
     |> redirect(to: ~p"/violation_reports")
+  end
+
+  defp report_data_for_show(%ViolationReport{} = report) do
+    report =
+      report
+      |> Map.take(ViolationReport.attributes_for_show)
+
+    ViolationReport.attributes_for_show
+    |> Enum.map(fn
+      attr -> {attr, report |> Map.get(attr)}
+    end)
+    |> Keyword.update(:raw_report, nil, fn
+      rr ->
+        {:ok, rr} = rr |> Jason.encode()
+        rr
+    end)
+    |> Keyword.filter(fn {_k, v} -> !is_nil(v) end)
   end
 
   defp extract_report(%Plug.Conn{} = conn) do

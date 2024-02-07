@@ -40,14 +40,40 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
     ]
   end
 
-  def attributes_to_display do
-    attributes() ++ [:inserted_at]
+  def attributes_for_index do
+    [
+      :blocked_uri,
+      :document_uri,
+      :violated_directive,
+      :referrer,
+      :incoming_ip,
+      :inserted_at
+    ]
+  end
+
+  def attributes_for_show do
+    [
+      :blocked_uri,
+      :disposition,
+      :document_uri,
+      :effective_directive,
+      :violated_directive,
+      :original_policy,
+      :referrer,
+      :status_code,
+      :raw_browser,
+      :source_file,
+      :script_sample,
+      :line_number,
+      :incoming_ip,
+      :inserted_at
+    ]
   end
 
   @doc false
   def changeset(violation_report, attrs) do
     violation_report
     |> cast(attrs, attributes())
-    |> validate_required([:blocked_uri])
+    |> validate_required([:blocked_uri, :raw_report])
   end
 end

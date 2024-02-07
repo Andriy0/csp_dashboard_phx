@@ -9,8 +9,8 @@
 </.header>
 
 <.list>
-  <:item :for={attr <- @attributes} title={attr}>
-    <%= @violation_report |> Map.get(attr) |> inspect %>
+  <:item :for={{key, value} <- @report_data} title={key}>
+    <%= value %>
   </:item>
 </.list>
 
