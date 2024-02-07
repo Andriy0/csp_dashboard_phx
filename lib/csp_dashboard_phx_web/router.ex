@@ -6,7 +6,14 @@ defmodule CspDashboardPhxWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {CspDashboardPhxWeb.Layouts, :root}
-    plug :put_secure_browser_headers#, %{"content-security-policy-report-only" => "default-src 'self'; report-uri /violation_reports"}
+    plug :put_secure_browser_headers#,
+      # %{
+      #   "content-security-policy-report-only" =>
+      #     "default-src 'self';\
+      #      img-src 'self' data:;\
+      #      script-src 'self' 'report-sample';\
+      #      report-uri /violation_reports"
+      # }
   end
 
   pipeline :csrf do
