@@ -7,7 +7,8 @@ defmodule CspDashboardPhxWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, html: {CspDashboardPhxWeb.Layouts, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers,
+         %{"content-security-policy-report-only" => "default-src 'self'; report-uri /violation_reports"}
   end
 
   pipeline :api do
