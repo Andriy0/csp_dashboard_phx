@@ -2,6 +2,19 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {
+    Flop.Schema,
+    filterable: [:raw_report],
+    sortable: [
+      :blocked_uri,
+      :document_uri,
+      :violated_directive,
+      :referrer,
+      :incoming_ip,
+      :inserted_at
+    ]
+  }
+
   schema "violation_reports" do
     field :blocked_uri, :string
     field :disposition, :string

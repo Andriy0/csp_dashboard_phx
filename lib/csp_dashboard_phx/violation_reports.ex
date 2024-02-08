@@ -21,6 +21,10 @@ defmodule CspDashboardPhx.ViolationReports do
     Repo.all(ViolationReport)
   end
 
+  def list_violation_reports(params) do
+    Flop.validate_and_run(ViolationReport, params, for: ViolationReport)
+  end
+
   @doc """
   Gets a single violation_report.
 

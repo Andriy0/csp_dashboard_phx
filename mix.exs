@@ -58,7 +58,8 @@ defmodule CspDashboardPhx.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:content_security_policy, "~> 1.0"}
+      {:content_security_policy, "~> 1.0"},
+      {:flop_phoenix, "~> 0.22.6"}
     ]
   end
 

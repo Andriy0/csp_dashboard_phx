@@ -2,16 +2,21 @@
   Listing Violation reports
 </.header>
 
-<.table id="violation_reports" rows={@violation_reports} row_click={&JS.navigate(~p"/violation_reports/#{&1}")}>
-  <:col :for={attr <- @attributes} :let={violation_report} label={attr}>
+<Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
+
+<Flop.Phoenix.table 
+  items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 
+  row_click={&JS.navigate(~p"/violation_reports/#{&1}")}
+  opts={table_opts()}
+>
+  <:col :for={attr <- @attributes} :let={violation_report} label={attr} field={attr}>
     <%= violation_report |> Map.get(attr) %>
   </:col>
-  <%!-- <:action :let={violation_report}>
-    <.link navigate={~p"/violation_reports/#{violation_report}"}>Show</.link>
-  </:action> --%>
   <:action :let={violation_report}>
     <.link href={~p"/violation_reports/#{violation_report}"} method="delete">
       <.icon name="hero-trash" />
     </.link>
   </:action>
-</.table>
+</Flop.Phoenix.table>
+
+<Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />

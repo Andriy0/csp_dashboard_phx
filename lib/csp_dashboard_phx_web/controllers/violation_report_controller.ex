@@ -7,10 +7,11 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
   alias CspDashboardPhx.ViolationReports
   alias CspDashboardPhx.ViolationReports.ViolationReport
 
-  def index(conn, _params) do
-    violation_reports = ViolationReports.list_violation_reports()
-    render(conn, :index, violation_reports: violation_reports,
-           attributes: ViolationReport.attributes_for_index)
+  def index(conn, params) do
+    with {:ok, {violation_reports, meta}} <- ViolationReports.list_violation_reports(params |> Map.put("page_size", 20)) do
+      render(conn, :index, meta: meta, violation_reports: violation_reports,
+             attributes: ViolationReport.attributes_for_index)
+    end
   end
 
   def create(conn, _params) do
