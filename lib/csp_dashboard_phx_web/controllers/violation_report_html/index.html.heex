@@ -2,7 +2,11 @@
   Listing Violation reports
 </.header>
 
-<Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
+<.filter_form meta={@meta}></.filter_form>
+
+<section class="mt-6">
+  <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
+</section>
 
 <Flop.Phoenix.table 
   items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 

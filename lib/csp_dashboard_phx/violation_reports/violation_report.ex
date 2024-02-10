@@ -4,7 +4,7 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
 
   @derive {
     Flop.Schema,
-    filterable: [:raw_report],
+    filterable: [:report],
     sortable: [
       :blocked_uri,
       :document_uri,
@@ -12,6 +12,14 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
       :referrer,
       :incoming_ip,
       :inserted_at
+    ],
+    adapter_opts: [
+      compound_fields: [report: [
+        :blocked_uri,
+        :document_uri,
+        :violated_directive,
+        :referrer
+      ]]
     ]
   }
 
