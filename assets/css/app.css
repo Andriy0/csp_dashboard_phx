@@ -3,3 +3,22 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+.has-tooltip {
+  @apply relative inline-block;
+}
+
+.has-tooltip .tooltip {
+  @apply absolute bottom-full left-1/2 -translate-x-1/2 
+  z-10 invisible opacity-0
+  inline-block px-3 py-2 text-sm font-medium text-white 
+  transition-opacity duration-300 bg-gray-900 rounded-lg 
+  shadow-sm dark:bg-gray-700
+  after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 
+  after:border-solid after:border-t-8 after:border-x-transparent 
+  after:border-x-8 after:border-b-0 after:border-t-gray-900;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible opacity-100;
+}

@@ -548,6 +548,29 @@ defmodule CspDashboardPhxWeb.CoreComponents do
   end
 
   @doc """
+  Renders a tooltip.
+
+  ## Examples
+
+      <.tooltip content="Tooltip text">
+        Actual content
+      </.tooltip>
+  """
+  attr :content, :string, required: true
+  slot :inner_block, required: true
+
+  def tooltip(assigns) do
+    ~H"""
+    <div class="has-tooltip">
+      <%= render_slot(@inner_block) %>
+      <div class="tooltip">
+        <%= @content %>
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a back navigation link.
 
   ## Examples
