@@ -73,6 +73,7 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
     body
     |> transform()
     |> put_raw_browser(conn)
+    |> put_incoming_ip(conn)
     |> put_raw_report()
   end
 
@@ -90,6 +91,15 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
 
     report
     |> Map.put("raw_browser", raw_browser)
+  end
+
+  defp put_incoming_ip(%{} = report, %Plug.Conn{} = conn) do
+    incoming_ip =
+      conn.remote_ip
+      |> :inet.ntoa() |> to_string()
+
+    report
+    |> Map.put("incoming_ip", incoming_ip)
   end
 
   defp put_raw_report(%{} = report) do
