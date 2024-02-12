@@ -6,15 +6,15 @@ defmodule CspDashboardPhxWeb.Router do
   #     "'self'"
   #   ],
   #   img_src: [
-  #     "'self'",
-  #     "data:"
+  #     "'self'"#,
+  #     # "data:"
   #   ],
   #   script_src: [
   #     "'self'",
   #     "'report-sample'"
   #   ],
   #   report_uri: [
-  #     "/violation_reports"
+  #     "/api/violation_reports"
   #   ]
   # }
 
@@ -37,23 +37,17 @@ defmodule CspDashboardPhxWeb.Router do
   scope "/", CspDashboardPhxWeb do
     pipe_through [:browser, :csrf]
 
-    get "/", ViolationReportController, :index
+    live "/", ViolationReportsLive
 
-    resources "/violation_reports", ViolationReportController, only: [:index, :show, :delete]
-
-    live "/reports_live", ViolationReportsLive
-  end
-
-  scope "/", CspDashboardPhxWeb do
-    pipe_through :browser
-
-    resources "/violation_reports", ViolationReportController, only: [:create]
+    live "/violation_reports", ViolationReportsLive
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CspDashboardPhxWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", CspDashboardPhxWeb do
+    pipe_through :api
+
+    resources "/violation_reports", ViolationReportController, only: [:create]
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:csp_dashboard_phx, :dev_routes) do

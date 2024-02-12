@@ -26,18 +26,18 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
         {:noreply, assign(socket, new_assigns)}
 
       {:error, _meta} ->
-        {:noreply, push_navigate(socket, to: ~p"/reports_live")}
+        {:noreply, push_navigate(socket, to: ~p"/violation_reports")}
     end
   end
 
   def handle_event("update-filter", params, socket) do
     params = Map.delete(params, "_target")
 
-    {:noreply, push_patch(socket, to: ~p"/reports_live?#{params}")}
+    {:noreply, push_patch(socket, to: ~p"/violation_reports?#{params}")}
   end
 
   def handle_event("reset-filter", _params, socket) do
-    {:noreply, push_navigate(socket, to: ~p"/reports_live")}
+    {:noreply, push_navigate(socket, to: ~p"/violation_reports")}
   end
 
   def handle_event("delete-report", %{"report_id" => id}, socket) do

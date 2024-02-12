@@ -5,12 +5,12 @@
 <.filter_form meta={@meta} id="reports_filter_form" fields={[report: [op: :ilike_and]]}></.filter_form>
 
 <section class="mt-6">
-  <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/reports_live"} />
+  <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
 </section>
 
 <section class="overflow-x-auto py-7">
   <Flop.Phoenix.table 
-    items={@violation_reports} meta={@meta} path={~p"/reports_live"} 
+    items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 
     opts={table_opts()}
   >
     <:col :for={attr <- @attributes} :let={violation_report} label={attr} field={attr}>
@@ -36,7 +36,7 @@
   </Flop.Phoenix.table>
 </section>
 
-<Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/reports_live"} />
+<Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
 
 <.modal id="show-report-modal">
   <.header :if={@violation_report}>
