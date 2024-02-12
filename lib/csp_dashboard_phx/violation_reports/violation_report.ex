@@ -21,6 +21,10 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
         :referrer
       ]]
     ],
+    default_order: %{
+      order_by: [:inserted_at],
+      order_directions: [:desc]
+    },
     default_limit: 15,
     max_limit: 50
   }
