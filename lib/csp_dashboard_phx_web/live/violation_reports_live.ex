@@ -5,6 +5,7 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
   alias CspDashboardPhx.ViolationReports
   alias CspDashboardPhx.ViolationReports.ViolationReport
 
+  @impl true
   def mount(_params, _session, socket) do
     default_assigns = %{
       attributes: ViolationReport.attributes_for_index,
@@ -15,6 +16,7 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
     {:ok, assign(socket, default_assigns)}
   end
 
+  @impl Phoenix.LiveView
   def handle_params(params, _session, socket) do
     case ViolationReports.list_violation_reports(params) do
       {:ok, {violation_reports, meta}} ->
@@ -30,6 +32,7 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
     end
   end
 
+  @impl true
   def handle_event("update-filter", params, socket) do
     params = Map.delete(params, "_target")
 
