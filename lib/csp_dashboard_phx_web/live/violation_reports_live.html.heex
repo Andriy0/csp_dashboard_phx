@@ -2,7 +2,7 @@
   Listing Violation reports
 </.header>
 
-<.filter_form meta={@meta} id="reports_filter_form" fields={[report: [op: :ilike_and]]}></.filter_form>
+<.filter_form meta={@meta} id="reports-filter-form" fields={[report: [op: :ilike_and]]}></.filter_form>
 
 <section class="mt-6">
   <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
@@ -11,7 +11,7 @@
 <section class="overflow-x-auto py-7">
   <Flop.Phoenix.table 
     items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 
-    opts={table_opts()}
+    opts={table_opts()} id="reports-table"
   >
     <:col :for={attr <- @attributes} :let={violation_report} label={attr} field={attr}>
       <% value = violation_report |> Map.get(attr) %>
