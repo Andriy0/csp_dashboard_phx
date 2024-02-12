@@ -30,7 +30,7 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
   slot :inner_block
 
   def filter_form(%{meta: meta} = assigns) do
-    assigns = assign(assigns, :form, Phoenix.Component.to_form(meta))
+    assigns = assign(assigns, form: Phoenix.Component.to_form(meta), meta: nil)
 
     ~H"""
     <.simple_form
