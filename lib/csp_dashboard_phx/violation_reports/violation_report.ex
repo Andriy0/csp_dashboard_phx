@@ -20,7 +20,9 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
         :violated_directive,
         :referrer
       ]]
-    ]
+    ],
+    default_limit: 15,
+    max_limit: 50
   }
 
   schema "violation_reports" do

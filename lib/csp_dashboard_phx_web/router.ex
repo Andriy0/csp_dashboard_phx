@@ -40,6 +40,8 @@ defmodule CspDashboardPhxWeb.Router do
     get "/", ViolationReportController, :index
 
     resources "/violation_reports", ViolationReportController, only: [:index, :show, :delete]
+
+    live "/reports_live", ViolationReportsLive
   end
 
   scope "/", CspDashboardPhxWeb do
