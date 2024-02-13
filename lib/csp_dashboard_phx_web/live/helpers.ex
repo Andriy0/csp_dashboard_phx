@@ -60,9 +60,11 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
     [
       wrapper_attrs: [class: "flex gap-2"],
       pagination_list_attrs: [class: ["flex gap-4 order-2"]],
+      pagination_link_attrs: [class: ["px-2 py-1"]],
       previous_link_attrs: [class: "order-1 hero-chevron-left-mini"],
       next_link_attrs: [class: "order-3 hero-chevron-right-mini"],
-      page_links: {:ellipsis, 5}
+      page_links: {:ellipsis, 5},
+      current_link_attrs: [class: "bg-zinc-200 px-2 px-1 is-current"]
     ]
   end
 
