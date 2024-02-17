@@ -40,7 +40,7 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
   end
 
   def handle_event("reset-filter", _params, socket) do
-    {:noreply, push_navigate(socket, to: ~p"/violation_reports")}
+    {:noreply, push_patch(socket, to: ~p"/violation_reports")}
   end
 
   def handle_event("delete-report", %{"report_id" => id}, socket) do
