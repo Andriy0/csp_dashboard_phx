@@ -1,0 +1,14 @@
+<section>
+  <.modal id="show-report-modal">
+    <.header :if={@violation_report}>
+      Violation report <%= @violation_report.id %>
+      <:subtitle>This is a violation_report record from your database.</:subtitle>
+    </.header>
+
+    <.list :if={@report_data}>
+      <:item :for={{key, value} <- @report_data} title={key}>
+        <%= value %>
+      </:item>
+    </.list>
+  </.modal>
+</section>

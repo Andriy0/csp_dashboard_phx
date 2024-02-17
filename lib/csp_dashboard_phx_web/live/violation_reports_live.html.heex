@@ -8,45 +8,20 @@
   <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
 </section>
 
-<section class="overflow-x-auto py-7">
-  <Flop.Phoenix.table 
-    items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 
-    opts={table_opts()} id="reports-table"
-  >
-    <:col :for={attr <- @attributes} :let={violation_report} label={attr} field={attr}>
-      <% value = violation_report |> Map.get(attr) %>
-      <.tooltip content={"#{value}"}>
-        <%= value |> truncate([max_length: 50]) %>
-      </.tooltip>
-    </:col>
-    <:action :let={violation_report}>
-      <.tooltip content="Show">
-        <.link phx-click={open_show_report_modal(violation_report.id)}>
-          <.icon name="hero-document" />
-        </.link>
-      </.tooltip>
-    </:action>
-    <:action :let={violation_report}>
-      <.tooltip content="Delete">
-        <.link phx-click={delete_report(violation_report.id)}>
-          <.icon name="hero-trash" />
-        </.link>
-      </.tooltip>
-    </:action>
-  </Flop.Phoenix.table>
-</section>
+<.live_component
+  module={CspDashboardPhxWeb.ViolationReportsListComponent}
+  violation_reports={@violation_reports}
+  meta={@meta}
+  attributes={@attributes}
+  id="violation-reports-list-component"
+/>
 
 <Flop.Phoenix.pagination opts={pagination_opts()} meta={@meta} path={~p"/violation_reports"} />
 
-<.modal id="show-report-modal">
-  <.header :if={@violation_report}>
-    Violation report <%= @violation_report.id %>
-    <:subtitle>This is a violation_report record from your database.</:subtitle>
-  </.header>
-
-  <.list :if={@report_data}>
-    <:item :for={{key, value} <- @report_data} title={key}>
-      <%= value %>
-    </:item>
-  </.list>
-</.modal>
+<.live_component
+  module={CspDashboardPhxWeb.ViolationReportModalComponent}
+  violation_report={@violation_report}
+  violation_reports={@violation_reports}
+  report_data={@report_data}
+  id="violation-report-modal-component"
+/>
