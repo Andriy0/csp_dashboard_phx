@@ -30,6 +30,14 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
   slot :inner_block
 
   def filter_form(%{meta: meta} = assigns) do
+    meta =
+      meta
+      |> Map.update!(:flop, fn
+        _ -> meta.flop
+        |> Map.update!(:order_by, fn _ -> [] end)
+        |> Map.update!(:order_directions, fn _ -> [] end)
+      end)
+
     assigns = assign(assigns, form: Phoenix.Component.to_form(meta), meta: nil)
 
     ~H"""
