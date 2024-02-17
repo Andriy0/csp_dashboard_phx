@@ -11,7 +11,10 @@ defmodule CspDashboardPhx.ViolationReportsFixtures do
     {:ok, violation_report} =
       attrs
       |> Enum.into(%{
-        blocked_uri: "some blocked_uri"
+        blocked_uri: "data",
+        raw_report: %{
+          "blocked_uri" => "data"
+        }
       })
       |> CspDashboardPhx.ViolationReports.create_violation_report()
 

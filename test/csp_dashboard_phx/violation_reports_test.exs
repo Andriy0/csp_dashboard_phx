@@ -21,7 +21,7 @@ defmodule CspDashboardPhx.ViolationReportsTest do
     end
 
     test "create_violation_report/1 with valid data creates a violation_report" do
-      valid_attrs = %{blocked_uri: "some blocked_uri"}
+      valid_attrs = %{blocked_uri: "some blocked_uri", raw_report: %{"blocked_uri" => "some blocked_uri"}}
 
       assert {:ok, %ViolationReport{} = violation_report} = ViolationReports.create_violation_report(valid_attrs)
       assert violation_report.blocked_uri == "some blocked_uri"
@@ -33,7 +33,7 @@ defmodule CspDashboardPhx.ViolationReportsTest do
 
     test "update_violation_report/2 with valid data updates the violation_report" do
       violation_report = violation_report_fixture()
-      update_attrs = %{blocked_uri: "some updated blocked_uri"}
+      update_attrs = %{blocked_uri: "some updated blocked_uri", raw_report: %{"blocked_uri" => "some updated blocked_uri"}}
 
       assert {:ok, %ViolationReport{} = violation_report} = ViolationReports.update_violation_report(violation_report, update_attrs)
       assert violation_report.blocked_uri == "some updated blocked_uri"
