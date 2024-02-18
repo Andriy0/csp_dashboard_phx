@@ -3,15 +3,18 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
 
   def truncate(text, opts \\ []) do
     max_length = opts[:max_length] || 50
-    omission   = opts[:omission] || "..."
+    omission = opts[:omission] || "..."
 
     cond do
       not is_bitstring(text) ->
         text
+
       not String.valid?(text) ->
         text
-      String.length(text) < max_length  ->
+
+      String.length(text) < max_length ->
         text
+
       true ->
         length_with_omission = max_length - String.length(omission)
 
@@ -33,9 +36,10 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
     meta =
       meta
       |> Map.update!(:flop, fn
-        _ -> meta.flop
-        |> Map.update!(:order_by, fn _ -> [] end)
-        |> Map.update!(:order_directions, fn _ -> [] end)
+        _ ->
+          meta.flop
+          |> Map.update!(:order_by, fn _ -> [] end)
+          |> Map.update!(:order_directions, fn _ -> [] end)
       end)
 
     assigns = assign(assigns, form: Phoenix.Component.to_form(meta), meta: nil)
@@ -49,13 +53,7 @@ defmodule CspDashboardPhxWeb.Live.Helpers do
       phx-submit={@on_change}
     >
       <Flop.Phoenix.filter_fields :let={i} form={@form} fields={@fields}>
-        <.input
-          field={i.field}
-          label={i.label}
-          type={i.type}
-          phx-debounce={120}
-          {i.rest}
-        />
+        <.input field={i.field} label={i.label} type={i.type} phx-debounce={120} {i.rest} />
       </Flop.Phoenix.filter_fields>
       <:actions>
         <.link phx-click="reset-filter" class="btn">Reset</.link>

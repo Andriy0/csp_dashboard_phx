@@ -53,8 +53,7 @@ defmodule CspDashboardPhxWeb.ViolationReportController do
 
   defp put_incoming_ip(%{} = report, %Plug.Conn{} = conn) do
     incoming_ip =
-      conn.remote_ip
-      |> :inet.ntoa() |> to_string()
+      conn.remote_ip |> :inet.ntoa() |> to_string()
 
     report
     |> Map.put("incoming_ip", incoming_ip)

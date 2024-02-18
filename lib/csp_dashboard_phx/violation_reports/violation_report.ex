@@ -14,12 +14,14 @@ defmodule CspDashboardPhx.ViolationReports.ViolationReport do
       :inserted_at
     ],
     adapter_opts: [
-      compound_fields: [report: [
-        :blocked_uri,
-        :document_uri,
-        :violated_directive,
-        :referrer
-      ]]
+      compound_fields: [
+        report: [
+          :blocked_uri,
+          :document_uri,
+          :violated_directive,
+          :referrer
+        ]
+      ]
     ],
     default_order: %{
       order_by: [:inserted_at],

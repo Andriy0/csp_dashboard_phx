@@ -1,17 +1,23 @@
 <section class="overflow-x-auto py-7">
-  <Flop.Phoenix.table 
-    items={@violation_reports} meta={@meta} path={~p"/violation_reports"} 
-    opts={table_opts()} id="reports-table"
+  <Flop.Phoenix.table
+    items={@violation_reports}
+    meta={@meta}
+    path={~p"/violation_reports"}
+    opts={table_opts()}
+    id="reports-table"
   >
-    <:col :for={attr <- @attributes} :let={violation_report} label={attr} field={attr}>
+    <:col :let={violation_report} :for={attr <- @attributes} label={attr} field={attr}>
       <% value = violation_report |> Map.get(attr) %>
       <.tooltip content={"#{value}"}>
-        <%= value |> truncate([max_length: 50]) %>
+        <%= value |> truncate(max_length: 50) %>
       </.tooltip>
     </:col>
     <:action :let={violation_report}>
       <.tooltip content="Show">
-        <.link phx-click={open_show_report_modal(violation_report.id)} phx-target="#show-report-modal">
+        <.link
+          phx-click={open_show_report_modal(violation_report.id)}
+          phx-target="#show-report-modal"
+        >
           <.icon name="hero-document" />
         </.link>
       </.tooltip>
