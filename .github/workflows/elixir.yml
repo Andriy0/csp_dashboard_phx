@@ -4,11 +4,15 @@ name: Elixir CI
 # `main` branch or pushed to a PR branch that targets the `main`
 # branch. Change the branch name if your project uses a
 # different name for the main branch like "master" or "production".
+#
+# on:
+#   push:
+#     branches: [ "main" ]  # adapt branch for project
+#   pull_request:
+#     branches: [ "main" ]  # adapt branch for project
+
 on:
   push:
-  #   branches: [ "main" ]  # adapt branch for project
-  # pull_request:
-  #   branches: [ "main" ]  # adapt branch for project
 
 # Sets the ENV `MIX_ENV` to `test` for running tests
 env:
