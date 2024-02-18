@@ -8,7 +8,7 @@ defmodule CspDashboardPhxWeb.ViolationReportsLive do
   @impl true
   def mount(_params, _session, socket) do
     default_assigns = %{
-      attributes: ViolationReport.attributes_for_index,
+      attributes: ViolationReport.attributes_for_index(),
       violation_report: nil,
       report_data: nil
     }

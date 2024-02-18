@@ -19,9 +19,9 @@ defmodule CspDashboardPhxWeb.ViolationReportModalComponent do
   defp report_data_for_show(%ViolationReport{} = report) do
     report =
       report
-      |> Map.take(ViolationReport.attributes_for_show)
+      |> Map.take(ViolationReport.attributes_for_show())
 
-    ViolationReport.attributes_for_show
+    ViolationReport.attributes_for_show()
     |> Enum.map(fn
       attr -> {attr, report |> Map.get(attr)}
     end)
